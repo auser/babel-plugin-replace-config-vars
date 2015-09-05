@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-replace-config-vars",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Replace strings with their config variables",
   "main": "lib/index.js",
   "scripts": {
