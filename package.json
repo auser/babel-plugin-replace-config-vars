@@ -1,10 +1,11 @@
 {
   "name": "babel-plugin-replace-config-vars",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Replace strings with their config variables",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel-plugin build",
+    "publish": "babel-plugin publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
