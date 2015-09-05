@@ -12,6 +12,9 @@ In `.babelrc`:
 
 ```json
 // ...
+"plugins": [
+  "replace-config-vars"
+],
 "extra": {
   "config": {
     "directory": "./config"
