@@ -3,30 +3,25 @@ var fs = require('fs'),
 
 const DEBUG_INTRO = 'Babel plugin config: ';
 var env = process.env.NODE_ENV || 'development';
-const defaultConfig = {
-  "directory": "./config"
-};
-
+var defaultConfig = {
+  "directory": "./config",
+  "debug": false,
+ 
 export default function ({ Plugin, types: t }) {
   var match = t.buildMatchMemberExpression("process.env");
   var configOpts       = (opts) => (opts.extra && opts.extra.config) ? opts.extra.config : defaultConfig;
-  var directoryDefined = (opts) => opts.extra && opts.extra.config && opts.extra.config.directory;
-  var defaultDirectory = './config';
 
   return new Plugin("replace-config-vars", {
     visitor: {
       Program(node, parent, scope, file) {
         // Set debugging
-        let debugging = configOpts.debug ? configOpts.debug : false;
+        var cfg       = configOpts(file);
+        var debugging = cfg.debug || false;
+        var dir       = cfg.directory;
+
         file.set("debugging", debugging);
 
-        var dir = directoryDefined(file.opts) ?
-            file.opts.extra.config.directory : defaultDirectory;
-
         var resolvedDir = path.resolve(dir);
-        var confFile = path.join(resolvedDir, env + '.json');
-        var conf = {};
-
         // Check if file exists
 
         debugging && console.log(DEBUG_INTRO, "Attempting to load config file: " + confFile);
