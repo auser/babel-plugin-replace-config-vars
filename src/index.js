@@ -1,17 +1,18 @@
-var fs = require('fs'),
-    path = require('path');
+import fs from 'fs';
+import path from 'path';
 
-const DEBUG_INTRO = 'Babel plugin config: ';
+var DEBUG_INTRO = 'Babel plugin config: ';
 var env = process.env.NODE_ENV || 'development';
 var defaultConfig = {
-  "directory": "./config",
-  "debug": false,
- 
+  'directory': './config',
+  'debug': false
+};
+
 export default function ({ Plugin, types: t }) {
-  var match = t.buildMatchMemberExpression("process.env");
+  var match = t.buildMatchMemberExpression('process.env');
   var configOpts       = (opts) => (opts.extra && opts.extra.config) ? opts.extra.config : defaultConfig;
 
-  return new Plugin("replace-config-vars", {
+  return new Plugin('replace-config-vars', {
     visitor: {
       Program(node, parent, scope, file) {
         // Set debugging
@@ -19,27 +20,33 @@ export default function ({ Plugin, types: t }) {
         var debugging = cfg.debug || false;
         var dir       = cfg.directory;
 
-        file.set("debugging", debugging);
+        file.set('debugging', debugging);
 
         var resolvedDir = path.resolve(dir);
+        var confFile = path.join(resolvedDir, env + '.json');
+
         // Check if file exists
 
-        debugging && console.log(DEBUG_INTRO, "Attempting to load config file: " + confFile);
+        if (debugging)
+          console.log(DEBUG_INTRO, 'Attempting to load config file: ' + confFile);
 
+        let conf;
         try {
           var stat = fs.statSync(confFile);
           if (stat.isFile()) {
             conf = require(confFile);
-            debugging && console.log(DEBUG_INTRO, "Loaded config file:", confFile);
+            if (debugging)
+              console.log(DEBUG_INTRO, 'Loaded config file:', confFile);
           }
         } catch (e) {
           if (e.code !== 'ENOENT')
             throw new Error(e);
 
-          debugging && console.log(DEBUG_INTRO, "Error loading config file",e);
+          if (debugging)
+            console.log(DEBUG_INTRO, 'Error loading config file',e);
         }
 
-        file.set("config", conf);
+        file.set('config', conf);
       },
 
       MemberExpression: function(node, parent, scope, state) {
@@ -50,12 +57,12 @@ export default function ({ Plugin, types: t }) {
           var key = this.toComputedKey();
           if (cfg[key.value]) {
             var value = cfg[key.value];
-            
-            debugging && console.log(DEBUG_INTRO, "Setting ", key, "to", value);
+
+            debugging && console.log(DEBUG_INTRO, 'Setting ', key, 'to', value);
             return t.valueToNode(value);
           }
         }
       }
-   }
+    }
   });
 }

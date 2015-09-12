@@ -6,7 +6,8 @@
   "scripts": {
     "build": "babel-plugin build",
     "publish": "babel-plugin publish",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint -c ./.eslintrc src",
+    "test": "mocha --compilers js:babel/register"
   },
   "keywords": [
     "babel-plugin"
@@ -14,6 +15,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "babel": "^5.8.23"
+    "babel": "^5.8.23",
+    "babel-eslint": "^4.1.1",
+    "eslint": "^1.4.1",
+    "eslint-plugin-react": "^3.3.2",
+    "mocha": "^2.3.2"
   }
 }

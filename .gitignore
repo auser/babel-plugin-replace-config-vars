@@ -1,2 +1,5 @@
 .tern-port
 node_modules/
+*.log
+lib
+
