@@ -52,6 +52,8 @@ export default function ({ Plugin, types: t }) {
       MemberExpression: function(node, parent, scope, state) {
         let debugging = state.get('debugging');
 
+        console.log('hi');
+
         if (match(node.object)) {
           var cfg = state.get('config');
           var key = this.toComputedKey();
