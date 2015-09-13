@@ -16,7 +16,7 @@ export default function ({ Plugin, types: t }) {
     visitor: {
       Program(node, parent, scope, file) {
         // Set debugging
-        var cfg       = configOpts(file);
+        var cfg       = configOpts(file.opts);
         var debugging = cfg.debug || false;
         var dir       = cfg.directory;
 
@@ -30,7 +30,7 @@ export default function ({ Plugin, types: t }) {
         if (debugging)
           console.log(DEBUG_INTRO, 'Attempting to load config file: ' + confFile);
 
-        let conf;
+        let conf = cfg;
         try {
           var stat = fs.statSync(confFile);
           if (stat.isFile()) {
