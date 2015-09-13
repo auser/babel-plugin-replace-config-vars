@@ -55,10 +55,12 @@ export default function ({ Plugin, types: t }) {
         if (match(node.object)) {
           var cfg = state.get('config');
           var key = this.toComputedKey();
-          if (cfg[key.value]) {
-            var value = cfg[key.value];
+          let k = key.value.toUpperCase();
+          if (cfg[k] || process.env[k]) {
+            var value = cfg[k] || process.env[k];
 
-            debugging && console.log(DEBUG_INTRO, 'Setting ', key, 'to', value);
+            if (debugging)
+              console.log(DEBUG_INTRO, 'Setting ', k, 'to', value);
             return t.valueToNode(value);
           }
         }
