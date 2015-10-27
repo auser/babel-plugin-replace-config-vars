@@ -3,7 +3,6 @@ import path from 'path';
 import glob from 'glob';
 import objectAssign from 'object-assign';
 
-var DEBUG_INTRO = 'Babel plugin config: ';
 var env = process.env.NODE_ENV || 'development';
 var defaultConfig = [];
 
