@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-replace-config-vars",
-  "version": "1.0.14",
+  "version": "2.0.0",
   "description": "Replace strings with their config variables",
   "main": "lib/index.js",
   "scripts": {
@@ -10,7 +10,10 @@
     "test": "NODE_ENV=test mocha --compilers js:babel/register"
   },
   "keywords": [
-    "babel-plugin"
+    "babel-plugin",
+    "babel environment",
+    "environment config",
+    "config"
   ],
   "author": "",
   "license": "ISC",
@@ -23,8 +26,5 @@
     "expect": "^1.12.2",
     "mocha": "^2.3.2"
   },
-  "dependencies": {
-    "glob": "^5.0.15",
-    "object-assign": "^4.0.1"
-  }
+  "dependencies": {}
 }
