@@ -17,10 +17,10 @@ In `.babelrc` add your configuration options:
 ],
 "extra": {
     "config": [
-    './config/$ENV.js',
-    './config/$ENV.json',
+    "./config/$ENV.js",
+    "./config/$ENV.json",
     {
-      'development': {
+      "development": {
         "URL": "http://localhost:3000"
       }
     }
@@ -58,3 +58,8 @@ with the normal node `process.env.`. For instance, to reference the `URL` option
 in the config above, assuming our process is running with `NODE_ENV=development`,
 then we can use the variable `process.env.URL` in our source and babel will
 replace it when it processes it.
+
+```javascript
+var url = process.env.URL;
+// ...  
+```
