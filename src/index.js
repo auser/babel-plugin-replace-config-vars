@@ -6,7 +6,7 @@ import path from 'path';
 let env = process.env.NODE_ENV || 'development';
 let defaultConfig = [];
 
-export default function ({ Plugin, types: t }) {
+export default function ({ types: t }) {
   let match = t.buildMatchMemberExpression('process.env');
   let configOpts       = (opts) => {
     let extraCfg  = (opts.extra && opts.extra.config) ? opts.extra.config : {};
